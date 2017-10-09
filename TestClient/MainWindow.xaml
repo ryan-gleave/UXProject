@@ -1,0 +1,14 @@
+﻿<Window x:Class="TestClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ux="clr-namespace:TestClient"
+        Width="365" Height="170" ResizeMode="NoResize" Title="Remote Testing Tool Client" Topmost="True" Closing="Window_Closing" Closed="Window_Closed">
+    <!--SizeToContent="Height"-->
+    <Grid>
+        <DockPanel>
+            <ContentControl MaxHeight="25" DockPanel.Dock="Bottom" Name="status"/>
+            <ContentControl Margin="5 2 5 5" Name="pagecontent"></ContentControl>
+        </DockPanel>
+        <Button Style="{StaticResource SimpleButton}" Foreground="Gray" HorizontalAlignment="Right" VerticalAlignment="Top" Click="Button_Click" Margin="0 -2 5 0">Status</Button>
+    </Grid>
+</Window>

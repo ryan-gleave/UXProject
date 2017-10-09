@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="TestClient.LoginPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fa="http://schemas.fontawesome.io/icons/"
+             mc:Ignorable="d">
+    <Grid>
+        <DockPanel VerticalAlignment="Top" Margin="0 8 0 0">
+            <TextBlock DockPanel.Dock="Bottom" Name="txt_error" Foreground="#FFE81123" HorizontalAlignment="Center" Margin="0 5 0 0"/>
+            <StackPanel Width="165">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 5">
+                    <fa:ImageAwesome Icon="UserCircle"  Height="13" Width="13" Foreground="#666" Margin="-5 2 3 0"/>
+                    <TextBlock Text="Login" FontSize="16" FontWeight="SemiBold"/>
+                </StackPanel>
+                <TextBlock Text="Please enter your user number" HorizontalAlignment="Center" Margin="0 0 0 2"/>
+                <TextBox TabIndex="0" Name="txt_userNumber" TextChanged="txt_userNumber_TextChanged" KeyDown="txt_userNumber_KeyDown"/>
+                <Button Name="btn_Enter" Click="btn_Enter_Click" Style="{StaticResource LoginButton}">Enter</Button>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</UserControl>

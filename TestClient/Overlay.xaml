@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="TestClient.Overlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d">
+    <Grid>            
+        <!-- START SCREEN -->
+        <DockPanel Name="testSummary">
+            <Button Name="btnBeginTest" Style="{StaticResource DefaultButton}" Click="btnBeginTest_Click" DockPanel.Dock="Bottom" HorizontalAlignment="Right">Begin Test</Button>
+            <StackPanel  Visibility="Visible">
+                <TextBlock Text="Test Summary" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock FontSize="14" Text="{Binding StringFormat=URL: {0}, Path=URL}"/>
+                <TextBlock FontSize="14" Text="{Binding StringFormat=No. Tasks: {0}, Path=TotalTasks}"/>
+            </StackPanel>
+        </DockPanel>
+            
+        <!-- TASK DISPLAY SCREEN -->
+        <DockPanel Name="testInfo" Visibility="Collapsed">
+            <DockPanel DockPanel.Dock="Bottom">
+                <Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Name="btnPause" Click="btnPause_Click" Style="{StaticResource SimpleButton}">
+                    <iconPacks:PackIconMaterial Kind="PauseCircleOutline" Foreground="#333" Width="20" Height="20"/>
+                </Button>
+                <StackPanel Margin="0 10 0 0" Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right">
+                    <Button Name="btnAbandonTask" Style="{StaticResource RedButton}" Click="btnAbandonTask_Click">Abandon Task</Button>
+                    <Button Name="btnNextTask" Style="{StaticResource DefaultButton}" Click="btnNextTask_Click">Complete Task</Button>
+                </StackPanel>
+            </DockPanel>
+            <StackPanel>
+                <TextBlock Text="{Binding CurrentTask}" FontSize="16" FontWeight="SemiBold"/>
+                <TextBlock Text="{Binding CurrentTaskDescription}" FontSize="14" TextWrapping="Wrap"/>
+            </StackPanel>
+        </DockPanel>
+
+        <!-- FINISH SCREEN -->
+        <StackPanel Name="finishPage" Visibility="Collapsed">
+            <TextBlock Text="Test Complete" FontSize="16" FontWeight="SemiBold"/>
+            <TextBlock FontSize="14" Text="Thank you for participating in this test."/>
+        </StackPanel>
+    </Grid>
+</UserControl>

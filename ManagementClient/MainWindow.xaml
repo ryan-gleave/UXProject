@@ -1,0 +1,9 @@
+﻿<Window x:Class="ManagementClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="456">
+    <Grid>
+        <ContentControl Content="{Binding SelectedViewModel}" Margin="5" />
+        <Button Style="{StaticResource DefaultButton}" IsEnabled="False" Margin="5" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="100" Name="btnBack" Click="btnBack_Click">Back</Button>
+    </Grid>
+</Window>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="60b8280b073f4e2e9fdb38a6594b6bb5" Name="Diagram1">
+        <EntityTypeShape EntityType="UXProjectModelContainer.Participant" Width="1.5" PointX="2.625" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="UXProjectModelContainer.TaskResult" Width="1.5" PointX="7" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UXProjectModelContainer.Task" Width="1.5" PointX="7" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="UXProjectModelContainer.TestResult" Width="1.5" PointX="4.875" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UXProjectModelContainer.Test" Width="1.5" PointX="2.625" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="UXProjectModelContainer.FK_TestResultParticipant" ManuallyRouted="false" />
+        <AssociationConnector Association="UXProjectModelContainer.FK_TestSubject" ManuallyRouted="false" />
+        <AssociationConnector Association="UXProjectModelContainer.FK_TaskTaskResult" ManuallyRouted="false" />
+        <AssociationConnector Association="UXProjectModelContainer.FK_TestResultTaskResult" ManuallyRouted="false" />
+        <AssociationConnector Association="UXProjectModelContainer.FK_TestTask" ManuallyRouted="false" />
+        <AssociationConnector Association="UXProjectModelContainer.FK_TestTestResult" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

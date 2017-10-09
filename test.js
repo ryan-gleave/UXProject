@@ -1,0 +1,1 @@
+var elements = document.getElementsByTagName('a');for (var i = 0, len = elements.length; i < len; i++) {elements[i].onclick = function () {alert('hello');}}

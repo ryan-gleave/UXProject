@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UXProjectModelContainer.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="UXProjectModelContainerStoreContainer">
+    <EntitySet Name="Participants" EntityType="UXProjectModelContainer.Store.Participants" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TaskResults" EntityType="UXProjectModelContainer.Store.TaskResults" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tasks" EntityType="UXProjectModelContainer.Store.Tasks" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TestResults" EntityType="UXProjectModelContainer.Store.TestResults" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tests" EntityType="UXProjectModelContainer.Store.Tests" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_TestResultParticipant" Association="UXProjectModelContainer.Store.FK_TestResultParticipant">
+      <End Role="Participants" EntitySet="Participants" />
+      <End Role="TestResults" EntitySet="TestResults" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TestSubject" Association="UXProjectModelContainer.Store.FK_TestSubject">
+      <End Role="Tests" EntitySet="Tests" />
+      <End Role="Participants" EntitySet="Participants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaskTaskResult" Association="UXProjectModelContainer.Store.FK_TaskTaskResult">
+      <End Role="Tasks" EntitySet="Tasks" />
+      <End Role="TaskResults" EntitySet="TaskResults" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TestResultTaskResult" Association="UXProjectModelContainer.Store.FK_TestResultTaskResult">
+      <End Role="TestResults" EntitySet="TestResults" />
+      <End Role="TaskResults" EntitySet="TaskResults" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TestTask" Association="UXProjectModelContainer.Store.FK_TestTask">
+      <End Role="Tests" EntitySet="Tests" />
+      <End Role="Tasks" EntitySet="Tasks" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TestTestResult" Association="UXProjectModelContainer.Store.FK_TestTestResult">
+      <End Role="Tests" EntitySet="Tests" />
+      <End Role="TestResults" EntitySet="TestResults" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Participants">
+    <Key>
+      <PropertyRef Name="ParticipantId" />
+    </Key>
+    <Property Name="ParticipantId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestId" Type="int" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TaskResults">
+    <Key>
+      <PropertyRef Name="TaskResultId" />
+    </Key>
+    <Property Name="TaskResultId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TaskId" Type="int" Nullable="false" />
+    <Property Name="TestResultId" Type="int" Nullable="false" />
+    <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Abandoned" Type="bit" Nullable="false" />
+    <Property Name="TimeStarted" Type="time" Nullable="false" Precision="7" />
+    <Property Name="TimeTaken" Type="time" Nullable="false" Precision="7" />
+    <Property Name="NavigationPath" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tasks">
+    <Key>
+      <PropertyRef Name="TaskId" />
+    </Key>
+    <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestId" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CorrectURL" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ComparisonType" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TestResults">
+    <Key>
+      <PropertyRef Name="TestResultId" />
+    </Key>
+    <Property Name="TestResultId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TestId" Type="int" Nullable="false" />
+    <Property Name="RecordingFilepath" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ParticipantId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tests">
+    <Key>
+      <PropertyRef Name="TestId" />
+    </Key>
+    <Property Name="TestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="URL" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_TestResultParticipant">
+    <End Role="Participants" Type="UXProjectModelContainer.Store.Participants" Multiplicity="1" />
+    <End Role="TestResults" Type="UXProjectModelContainer.Store.TestResults" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Participants">
+        <PropertyRef Name="ParticipantId" />
+      </Principal>
+      <Dependent Role="TestResults">
+        <PropertyRef Name="ParticipantId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TestSubject">
+    <End Role="Tests" Type="UXProjectModelContainer.Store.Tests" Multiplicity="1" />
+    <End Role="Participants" Type="UXProjectModelContainer.Store.Participants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tests">
+        <PropertyRef Name="TestId" />
+      </Principal>
+      <Dependent Role="Participants">
+        <PropertyRef Name="TestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaskTaskResult">
+    <End Role="Tasks" Type="UXProjectModelContainer.Store.Tasks" Multiplicity="1" />
+    <End Role="TaskResults" Type="UXProjectModelContainer.Store.TaskResults" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tasks">
+        <PropertyRef Name="TaskId" />
+      </Principal>
+      <Dependent Role="TaskResults">
+        <PropertyRef Name="TaskId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TestResultTaskResult">
+    <End Role="TestResults" Type="UXProjectModelContainer.Store.TestResults" Multiplicity="1" />
+    <End Role="TaskResults" Type="UXProjectModelContainer.Store.TaskResults" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TestResults">
+        <PropertyRef Name="TestResultId" />
+      </Principal>
+      <Dependent Role="TaskResults">
+        <PropertyRef Name="TestResultId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TestTask">
+    <End Role="Tests" Type="UXProjectModelContainer.Store.Tests" Multiplicity="1" />
+    <End Role="Tasks" Type="UXProjectModelContainer.Store.Tasks" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tests">
+        <PropertyRef Name="TestId" />
+      </Principal>
+      <Dependent Role="Tasks">
+        <PropertyRef Name="TestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TestTestResult">
+    <End Role="Tests" Type="UXProjectModelContainer.Store.Tests" Multiplicity="1" />
+    <End Role="TestResults" Type="UXProjectModelContainer.Store.TestResults" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tests">
+        <PropertyRef Name="TestId" />
+      </Principal>
+      <Dependent Role="TestResults">
+        <PropertyRef Name="TestId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UXProjectModelContainer" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Participant">
+          <Key>
+            <PropertyRef Name="ParticipantId" />
+          </Key>
+          <Property Name="ParticipantId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TestResults" Relationship="Self.FK_TestResultParticipant" FromRole="Participants" ToRole="TestResults" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_TestSubject" FromRole="Participants" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="TaskResult">
+          <Key>
+            <PropertyRef Name="TaskResultId" />
+          </Key>
+          <Property Name="TaskResultId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="TestResultId" Type="Int32" Nullable="false" />
+          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Abandoned" Type="Boolean" Nullable="false" />
+          <Property Name="TimeStarted" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="TimeTaken" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="NavigationPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Task" Relationship="Self.FK_TaskTaskResult" FromRole="TaskResults" ToRole="Tasks" />
+          <NavigationProperty Name="TestResult" Relationship="Self.FK_TestResultTaskResult" FromRole="TaskResults" ToRole="TestResults" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="TaskResults" Relationship="Self.FK_TaskTaskResult" FromRole="Tasks" ToRole="TaskResults" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_TestTask" FromRole="Tasks" ToRole="Tests" />
+          <Property Name="CorrectURL" Type="String" Nullable="false" />
+          <Property Name="ComparisonType" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TestResult">
+          <Key>
+            <PropertyRef Name="TestResultId" />
+          </Key>
+          <Property Name="TestResultId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TestId" Type="Int32" Nullable="false" />
+          <Property Name="RecordingFilepath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ParticipantId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Participant" Relationship="Self.FK_TestResultParticipant" FromRole="TestResults" ToRole="Participants" />
+          <NavigationProperty Name="TaskResults" Relationship="Self.FK_TestResultTaskResult" FromRole="TestResults" ToRole="TaskResults" />
+          <NavigationProperty Name="Test" Relationship="Self.FK_TestTestResult" FromRole="TestResults" ToRole="Tests" />
+        </EntityType>
+        <EntityType Name="Test">
+          <Key>
+            <PropertyRef Name="TestId" />
+          </Key>
+          <Property Name="TestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Participants" Relationship="Self.FK_TestSubject" FromRole="Tests" ToRole="Participants" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK_TestTask" FromRole="Tests" ToRole="Tasks" />
+          <NavigationProperty Name="TestResults" Relationship="Self.FK_TestTestResult" FromRole="Tests" ToRole="TestResults" />
+        </EntityType>
+        <Association Name="FK_TestResultParticipant">
+          <End Role="Participants" Type="Self.Participant" Multiplicity="1" />
+          <End Role="TestResults" Type="Self.TestResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Participants">
+              <PropertyRef Name="ParticipantId" />
+            </Principal>
+            <Dependent Role="TestResults">
+              <PropertyRef Name="ParticipantId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestSubject">
+          <End Role="Tests" Type="Self.Test" Multiplicity="1" />
+          <End Role="Participants" Type="Self.Participant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="Participants">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TaskTaskResult">
+          <End Role="Tasks" Type="Self.Task" Multiplicity="1" />
+          <End Role="TaskResults" Type="Self.TaskResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tasks">
+              <PropertyRef Name="TaskId" />
+            </Principal>
+            <Dependent Role="TaskResults">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestResultTaskResult">
+          <End Role="TestResults" Type="Self.TestResult" Multiplicity="1" />
+          <End Role="TaskResults" Type="Self.TaskResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TestResults">
+              <PropertyRef Name="TestResultId" />
+            </Principal>
+            <Dependent Role="TaskResults">
+              <PropertyRef Name="TestResultId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestTask">
+          <End Role="Tests" Type="Self.Test" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestTestResult">
+          <End Role="Tests" Type="Self.Test" Multiplicity="1" />
+          <End Role="TestResults" Type="Self.TestResult" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tests">
+              <PropertyRef Name="TestId" />
+            </Principal>
+            <Dependent Role="TestResults">
+              <PropertyRef Name="TestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UXProjectModelContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Participants" EntityType="Self.Participant" />
+          <EntitySet Name="TaskResults" EntityType="Self.TaskResult" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="TestResults" EntityType="Self.TestResult" />
+          <EntitySet Name="Tests" EntityType="Self.Test" />
+          <AssociationSet Name="FK_TestResultParticipant" Association="Self.FK_TestResultParticipant">
+            <End Role="Participants" EntitySet="Participants" />
+            <End Role="TestResults" EntitySet="TestResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestSubject" Association="Self.FK_TestSubject">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="Participants" EntitySet="Participants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TaskTaskResult" Association="Self.FK_TaskTaskResult">
+            <End Role="Tasks" EntitySet="Tasks" />
+            <End Role="TaskResults" EntitySet="TaskResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestResultTaskResult" Association="Self.FK_TestResultTaskResult">
+            <End Role="TestResults" EntitySet="TestResults" />
+            <End Role="TaskResults" EntitySet="TaskResults" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestTask" Association="Self.FK_TestTask">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestTestResult" Association="Self.FK_TestTestResult">
+            <End Role="Tests" EntitySet="Tests" />
+            <End Role="TestResults" EntitySet="TestResults" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="UXProjectModelContainerStoreContainer" CdmEntityContainer="UXProjectModelContext">
+    <EntitySetMapping Name="Participants">
+      <EntityTypeMapping TypeName="IsTypeOf(UXProjectModelContainer.Participant)">
+        <MappingFragment StoreEntitySet="Participants">
+          <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaskResults">
+      <EntityTypeMapping TypeName="IsTypeOf(UXProjectModelContainer.TaskResult)">
+        <MappingFragment StoreEntitySet="TaskResults">
+          <ScalarProperty Name="TaskResultId" ColumnName="TaskResultId" />
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+          <ScalarProperty Name="TestResultId" ColumnName="TestResultId" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+          <ScalarProperty Name="Abandoned" ColumnName="Abandoned" />
+          <ScalarProperty Name="TimeStarted" ColumnName="TimeStarted" />
+          <ScalarProperty Name="TimeTaken" ColumnName="TimeTaken" />
+          <ScalarProperty Name="NavigationPath" ColumnName="NavigationPath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="IsTypeOf(UXProjectModelContainer.Task)">
+        <MappingFragment StoreEntitySet="Tasks">
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="CorrectURL" ColumnName="CorrectURL" />
+          <ScalarProperty Name="ComparisonType" ColumnName="ComparisonType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TestResults">
+      <EntityTypeMapping TypeName="IsTypeOf(UXProjectModelContainer.TestResult)">
+        <MappingFragment StoreEntitySet="TestResults">
+          <ScalarProperty Name="TestResultId" ColumnName="TestResultId" />
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+          <ScalarProperty Name="RecordingFilepath" ColumnName="RecordingFilepath" />
+          <ScalarProperty Name="ParticipantId" ColumnName="ParticipantId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tests">
+      <EntityTypeMapping TypeName="IsTypeOf(UXProjectModelContainer.Test)">
+        <MappingFragment StoreEntitySet="Tests">
+          <ScalarProperty Name="TestId" ColumnName="TestId" />
+          <ScalarProperty Name="URL" ColumnName="URL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
